@@ -1,0 +1,3 @@
+This is an an News App which I have recently built with the help of Flutter & Dart that i have learned during academics of previous Semester. It will Give you World News in 60 to 90 words and there is a "READ MORE" button which will give you full story about that News when you click on that button.I have used the knowledge of Dart,Html,Git and API for this Project.
+
+You can check this app through this link:-https://www.linkedin.com/posts/kumar--satyam_hey-everyone-this-post-is-about-an-news-activity-7079153831359447044-WlgT?utm_source=share&utm_medium=member_desktop&rcm=ACoAADjFUzAB8zUvcFOYsSr8c1jkIzDi0Mq38ro
