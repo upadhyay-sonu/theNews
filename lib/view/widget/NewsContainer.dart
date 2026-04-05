@@ -138,13 +138,21 @@ class NewsContainer extends StatelessWidget {
                             ),
                           ),
                           ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => DetailViewScreen(newsUrl: newsUrl),
-                                ),
-                              );
+                            onPressed: () async {
+                              if (newsUrl.isNotEmpty && newsUrl != "--") {
+                                final Uri uri = Uri.parse(newsUrl);
+                                try {
+                                  if (await canLaunchUrl(uri)) {
+                                    await launchUrl(uri, mode: LaunchMode.externalApplication);
+                                  } else {
+                                    debugPrint("Could not launch URL: $newsUrl");
+                                  }
+                                } catch (e) {
+                                  debugPrint("URL launch error: $e");
+                                }
+                              } else {
+                                debugPrint("URL is null or empty");
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.deepPurple,
