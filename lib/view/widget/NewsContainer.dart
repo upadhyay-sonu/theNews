@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:newzzz/view/detail_view.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:newzzz/view/widget/news_image_widget.dart';
 
 class NewsContainer extends StatelessWidget {
   final String imgUrl;
@@ -38,50 +39,7 @@ class NewsContainer extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                  child: AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: Builder(
-                      builder: (context) {
-                        if (imgUrl.isEmpty || imgUrl == "--") {
-                          return Container(
-                            color: Colors.grey[300],
-                            child: const Icon(Icons.image_not_supported, size: 50, color: Colors.grey),
-                          );
-                        }
-                        // Wrap the URL with a proxy designed exactly to fix Flutter Web CORS rendering blocks
-                        String safeUrl = imgUrl.startsWith('http') 
-                           ? "https://corsproxy.io/?$imgUrl"
-                           : imgUrl;
-
-                        return Image.network(
-                          safeUrl,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            }
-                            return Container(
-                              color: Colors.grey[200],
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
-                                      : null,
-                                ),
-                              ),
-                            );
-                          },
-                          errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                            return Container(
-                              color: Colors.grey[300],
-                              child: const Icon(Icons.image_not_supported, size: 50, color: Colors.grey),
-                            );
-                          },
-                        );
-                      }
-                    ),
-                  ),
+                  child: NewsImageWidget(imageUrl: imgUrl),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
